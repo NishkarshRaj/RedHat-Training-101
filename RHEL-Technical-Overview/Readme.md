@@ -184,3 +184,31 @@ ls /
 
 **BCD!!! /temp versus /var/tmp - purges - auto deletes 10 and 30 days respectively**
 
+## Editing files using ViM - Text Editor
+
+```
+$ vim # vi improved in default command mode
+```
+
+* **Extended Command mode** - Use colon!!
+* **:write [filename]** # For creation on first time
+
+```
+$ vim [file name]
+```
+
+### Command mode
+
+** yy - copy line
+** p - paste copied line
+** 10p - paste copied line 10 times
+** dd - delete line
+** 9dd - delete next 9 lines
+** o - insert mode at EOF new line - append mode
+** ZZ - save and quit (without going into extended mode)
+** :q! - Quit without saving 
+
+```
+$ vimtutor # learn more about vim editor
+```
+
