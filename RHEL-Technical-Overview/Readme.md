@@ -150,3 +150,37 @@ $ ln [link to file] [linked file] # Hard link - file only # ls -l has file count
 $ ln -s [link to file] [linked file] # Soft links or Symbolic links - files and directories # ls -l starts with l
 ```
 
+## File System Hierarchy
+
+* Tree structure with root at the root 
+```
+ls /
+```
+
+* **bin:** executable for all users
+
+* **sbin:** executable for root
+
+**BCD!!!** ```$ ls -l /``` shows both bin and sbin are symbolic links to **usr/bin** and **usr/sbin** respectively.
+
+* **usr** - actual binaries
+**Example** - usr/bin/ls , usr/sbin/ip
+
+**Where is the command/file** ```$ whereis [filename]```
+
+* **boot/** - kernel is stored on boot directory. Bootloader is also there
+
+* **etc/** - Extended Text Configurations
+
+* **dev** - dev
+
+* **home** 
+
+* **/root** - home of root
+
+* **tmp** - temporary space
+
+* **/var** - variable space - spool data, logging data, temporary space, caches etc.
+
+**BCD!!! /temp versus /var/tmp - purges - auto deletes 10 and 30 days respectively**
+
