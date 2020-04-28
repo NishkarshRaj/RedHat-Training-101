@@ -92,3 +92,19 @@ $ ps -ef
 **Note:**
 * TTY - ? => Daemon process
 * Commands in square brackets => Kernel threads
+
+## Orientation to the Grapical User Interface - GNOME 3 Desktop Environment
+
+* Activities at top left
+* All activities and search bar within the Activity
+* Drag and Drop activities on favorites
+* Re-order the favorite bar on left sidebar
+* Setup notifications - Access calender on center
+
+### Workspaces
+
+* Workspaces - Multiple Workspaces! (ALT+TAB for Windows)
+* We can see multiple things opened together by clicking on Activities - Workspaces can be configured by dragging a process on right sidebar into an empty workspace.
+* Different Logics must have unique workspace for good organization
+* Switch workspace - **CTRL + ALT + Up/Down key**
+
