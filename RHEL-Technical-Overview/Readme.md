@@ -108,3 +108,45 @@ $ ps -ef
 * Different Logics must have unique workspace for good organization
 * Switch workspace - **CTRL + ALT + Up/Down key**
 
+## File Management in Linux
+* Everything on Linux is a file
+
+```
+$ ls
+```
+* Different files have different color schemes
+
+```
+$ ls -l # long listing
+```
+
+**Types of file**
+1. Normal file (extensions don't matter)
+2. Directories
+3. Linked files
+4. block files (ls -l /dev/vda)
+
+**How to check file type**
+
+```
+$ file [file name]
+```
+
+**Note:** File names are case sensitive
+
+**Note:** Files are stored as tree
+
+```
+$ tree [dir]
+```
+
+### How to create linked files
+
+```
+$ ln [link to file] [linked file] # Hard link - file only # ls -l has file count = 2
+```
+
+```
+$ ln -s [link to file] [linked file] # Soft links or Symbolic links - files and directories # ls -l starts with l
+```
+
