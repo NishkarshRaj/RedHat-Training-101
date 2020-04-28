@@ -212,3 +212,85 @@ $ vim [file name]
 $ vimtutor # learn more about vim editor
 ```
 
+## Organizing Users and Groups
+
+* Users always belong to one primary group by default - Same name as username
+* Create users
+```
+$ user # shows multiple user related commands 
+```
+
+```
+$ useradd [username]
+```
+
+* Information about user
+
+```
+$ id [username] #uid, gid (primary user with same name as username), supplementary groups
+```
+
+* Create a group
+
+```
+$ group
+```
+
+```
+$ groupad [group name]
+```
+
+* Add user to supplementary group
+```
+$ usermod -aG [groupname] [username] # Append to Group list
+```
+
+```
+$ id [user name]
+```
+
+* Add password to the user
+```
+$ passwd [username] # if username not passed we change password of current user
+```
+
+* Delete user
+```
+$ userdel [user name] # Does not delete user files and home directory
+```
+
+* Delete group
+```
+$ groupdel [group name]
+```
+
+* User configuration files in **etc/passwd** - Not password but all configuration files
+```
+$ grep [username] /etc/passwd
+```
+
+* See password
+```
+$ grep [username] /etc/shadow # shows encrypted password # Cannot see password of other users
+```
+
+* See group details
+```
+$ grep [group name] /etc/group
+```
+
+* Run a command on other user interface without switching using su
+```
+$ sudo -u [username] [command]
+```
+
+* Switch to root
+```
+$ su -
+```
+
+* Return to parent terminal
+```
+$ exit
+```
+
