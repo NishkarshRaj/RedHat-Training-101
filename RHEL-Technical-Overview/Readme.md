@@ -456,3 +456,22 @@ Shows unit file with their current state - static/enabled/disabled
 * RedHat container registry - RedHat Container Catalog
 ```$ yum module install container```
 
+## Introduction to Cockpit - Web Interface to RHEL Monitoring
+* Start Cockpit
+```$ systemctl enable --now cockpit.socket``` # Runs on TCP Port 9090
+
+* Add valid certificates and get domain ID and password
+
+* GUI support for user creation on left sidebar.
+
+* Network manager on left sidebar - alternate to NMCLI
+- Check data rate for sending and receiving data.
+
+* Log Monitoring - Sidebar - See everything
+
+* Software Update manager
+
+* Terminal for administration via Cockpit
+
+* Service - Systemctl service administrator
+
