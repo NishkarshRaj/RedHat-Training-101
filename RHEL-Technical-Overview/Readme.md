@@ -445,3 +445,14 @@ Shows unit file with their current state - static/enabled/disabled
 * Enable a service
 ```$ systemctl enable [service]``` # Enable means that always load in memory when system boots up
 
+## Introduction to Containers
+* Isolation
+* Portability
+* Lightweight wrt virtual machine - shares kernel of parent.
+* Multiple containers can co-exist in the same machine
+* One container only has its required libraries
+* Change in library in one container does not break another - isolation
+* **Tools** - buildah, spokeo
+* RedHat container registry - RedHat Container Catalog
+```$ yum module install container```
+
