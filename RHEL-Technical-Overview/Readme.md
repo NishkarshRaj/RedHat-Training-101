@@ -475,3 +475,7 @@ Shows unit file with their current state - static/enabled/disabled
 
 * Service - Systemctl service administrator
 
+## Summary
+* Developer Subscription - developers.redhat.com
+* Products - access.redhat.com - Knowledge blogs as well
+* RedHat Learning Subscription - learn.redhat.com
