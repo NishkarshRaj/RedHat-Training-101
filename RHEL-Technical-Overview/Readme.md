@@ -294,3 +294,27 @@ $ su -
 $ exit
 ```
 
+## File Permissions
+
+* Three types of permission 
+1. Read
+2. Write
+3. Execute
+
+* Every file has 10 bits for its description. **Check this by** `$ ls -l [filename]`
+* First bit is file type -,d,l,b etc.
+* Next 9 bits are grouped into 3 for permissions rwx
+* User, Primary Group, and Other are the three groups
+
+```$ ls -l [file]```
+Shows the 10 bits followed by user owner and its primary group.
+
+* To check which group the user belongs to, use ```$ groups [username]```
+
+**Changing File Permission - chmod command**
+
+* `$ chmod [u/g/o][+/-][r/w/x] [file]` 
+
+* **Ownership - Can be user level or grouped level**
+
+```$ chown [group1]:[group2] [file]```
