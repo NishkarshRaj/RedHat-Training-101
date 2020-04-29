@@ -363,3 +363,56 @@ Shows the 10 bits followed by user owner and its primary group.
 ```$ yum remove [package name]``` # Removes package and all the packages that were dependent on it
 **Note: Never pass -y command to auto delete! Always check dependency**
 
+## Configuring Network - Network Manager service
+* Provides GUI and CLI (NMCLI)
+
+```$ nmcli [double tab for options]```
+
+* Show connections
+```$ nmcli connection show```
+* **UUID** - Universally Unique ID	
+
+* Show detailed properties of connections
+```$ nmcli connection show [connection name]```
+
+* Show connections in current device
+```
+$ nmcli device show
+```
+
+* Create own connection profile
+```
+$ nmcli con add con-name [connection name] type [connection type] ifname [Interface name]
+```
+**Example:** `$ nmcli con add con-name static-connection type ethernet ifname enp1s0`
+
+```$ nmcli con show```
+* Green color for active connection ```$ nmcli con show --active```
+
+* Modify Connection property
+```$ nmcli con mod [name] [property] [value]
+
+```$ nmcli con mod static-connection ipv4.addresses 10.0.0.1/24```
+
+```$ nmcli con mod static-connection ipv4.gateway 10.0.0.254```
+
+```$ nmcli con mod static-connection ipv4.dns 10.0.0.254```
+
+* Active profile as current profile
+```$ nmcli con up [connection name]```
+
+* Delete profile
+```$ nmcli con delete [connection name]```
+
+**Note: Mod overwrites on default, we can append using +**
+```$ nmcli con mod static-connection ipv4.addresses 10.0.0.1/24``` # overwrites old value
+```$ nmcli con mod static-connection ipv4.addresses 10.0.0.2/24``` # Adds second value
+
+* Check IP Address for Interface
+```$ ip a s enp1s0``` # a for address and s for show
+
+* Up command can be used to refresh the profile if already up
+
+* All configurations of the network profiles are stored in **/etc/resolv.conf**
+
+## 
