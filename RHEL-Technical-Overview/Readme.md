@@ -415,4 +415,33 @@ $ nmcli con add con-name [connection name] type [connection type] ifname [Interf
 
 * All configurations of the network profiles are stored in **/etc/resolv.conf**
 
-## 
+## Controlling System Startup Processes - Systemd Service
+
+**Interface systemd with systemctl command**
+
+* Service units to manage with Systemctl command - each unit has its own configuration file
+
+* List the different unit configuration file
+```$ systemctl list-unit-files```
+Shows unit file with their current state - static/enabled/disabled
+
+* Display units of specific type
+```$ systemctl list-unit --type=service```
+
+* Check status of specific unit
+```$ systemctl status [unit name]```
+
+* All units are initialized when system boots up.
+
+* Restart the unit
+```$ systemctl restart [unit name]``` # Process ID changes - stops and starts freshly
+
+* Reload the unit
+```$ systemctl reload [unit name]``` # Process Id does not change - does not stop, justs refresh - synchronize changes in memory
+
+* Start a service
+```$ systemctl start [service]```
+
+* Enable a service
+```$ systemctl enable [service]``` # Enable means that always load in memory when system boots up
+
