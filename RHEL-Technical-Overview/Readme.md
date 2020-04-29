@@ -318,3 +318,48 @@ Shows the 10 bits followed by user owner and its primary group.
 * **Ownership - Can be user level or grouped level**
 
 ```$ chown [group1]:[group2] [file]```
+
+## Managing Software - Introduction to RPM
+
+**RPM:** RedHat Package Manager - archive of dependencies and packages to be installed
+
+* RPM Software - apart from package manager, files are also present - **.rpm extension**
+* Open source vendors might be risky to use - always use trusted vendors like RedHat.
+
+* Subscription Manager is used for RedHat repository
+```$ subscription-manager register```
+
+```$ subscription-manager attach```
+
+```$ subscription-manager repos --disable='=' --enable=[repo name]``` # Disable all repos
+
+```$ subscription-manager repos --list```
+
+* Deploy Satellite server common to all the devices in the organization - download only once and use for all - common repository to update and deploy to all. 
+* Satellite server are basically local central caching for common versioning to all devices in the organization
+* The server can store the packages in local web server which has to be configured with all devices
+
+* Check list of repositories connected with device
+```$ yum repolist all```
+
+```$ subscription-manager status```
+
+* Check the details of connected to repositories
+```$ ls -l /etc/yum.repos.d```
+
+* Check if package is installed or not
+```$ yum info [package name]```
+
+* Install package
+```$ yum install [-y] [package name]```
+
+* Update package
+```$ yum update [package name]```
+
+* Update all packages
+```$ yum update```
+
+* Remove software
+```$ yum remove [package name]``` # Removes package and all the packages that were dependent on it
+**Note: Never pass -y command to auto delete! Always check dependency**
+
