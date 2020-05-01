@@ -468,4 +468,49 @@ ScriptAlias /lame "/var/www/lameapp/lame.py"
 
 ## Utilizing Roles in the Main Playbooks
 
+**Completely fresh start to site.yml** - Say we have n roles, how to collaborate them and priortize them - which runs in what sequence
+* Call all roles in the main playbook.
+* Playbook with multiple plays
+
+* Site.yml {{Playbook with multiple plays}}
+
+```
+- name: apply the common configuration to all hosts # Play 1
+  hosts: all
+  remote_user: vagrant
+  become: yes
+  
+  roles: # Executes roles/[role name]/tasks/main.yml file
+  - common
+
+- name: apply the database configuration
+  hosts: dbservers
+  remote_user: vagrant
+  become: yes
+
+  roles: 
+  - mariadb
+
+- name: apply apache and web roles
+  hosts: webservers
+  remote_user: vagrant
+  become: yes
+
+  roles:
+  - apache
+  - web
+
+- name: apply load balancing
+  hosts: lbservers
+  remote_user: vagrant
+  become: yes
+  roles:
+  - haproxy
+```
+
+* Execute the Playbook
+```
+ansible-playbook -i [inventory] site.yml
+```
+
 ## Introduction to Ansible Towers
