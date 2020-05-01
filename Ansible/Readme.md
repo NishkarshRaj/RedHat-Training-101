@@ -274,3 +274,22 @@ handlers:
 $ ansible-playbook -i [inventory file] [play name].yml
 ```
 
+## Introduction to Roles
+
+Roles are packages of closely related Ansible content that can be shared more easily than roles alone
+* Portability
+* Sharing
+* **Directory structure** organization
+
+* Project with embedded role - Roles directory defined in same directory as the playbook configuration file.
+
+* Defining roles in playbook
+```
+- hosts: web
+  roles:
+    - common
+    - webservers
+```
+
+**Reference:** http://galaxy.ansible.com
+
