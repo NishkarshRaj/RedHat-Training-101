@@ -233,6 +233,7 @@ handlers:
     http_port: 80
     max_clients: 200
   remote_user: root #[user name]
+  become: yes # add root permissions
 
   tasks:
   - name: install httpd
@@ -241,5 +242,35 @@ handlers:
     template: src=/src/httpd.j2 dest=/etc/httpd.conf
   - name: start httpd
     service: name=httpd state=started
+```
+
+* Another Play example - site.yml (say)
+```
+- name: install and start apache
+  hosts: webservers
+  remote_user: vagrant
+  become: yes
+
+  tasks:
+  - name: install epel repp
+    yum: name=epel-release state=present
+  - name: install python bindings for SELinux
+    yum: name={{item}} state=present # loop
+    with_items:
+    - libselinux-python
+    libsemanage-python
+  - name: test SELinx is running
+    command: getenforce
+    register: sestatus
+    changed_when: false
+  - install apache
+    yum: name=httpd state=present
+  - name: start apache
+    service: name=httpd state=started enabled=yes
+```
+
+* Run Playbook
+```
+$ ansible-playbook -i [inventory file] [play name].yml
 ```
 
