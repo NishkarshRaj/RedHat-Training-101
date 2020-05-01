@@ -293,3 +293,24 @@ Roles are packages of closely related Ansible content that can be shared more ea
 
 **Reference:** http://galaxy.ansible.com
 
+## Creating Roles structure with Ansible-Galaxy
+
+* Create roles/ directory in the same directory as the playbook configuration file.
+```
+$ mkdir roles
+$ cd roles
+```
+
+* Create Strucute using Ansible-galaxy
+```
+$ ansible-galaxy init --help
+$ ansible-galaxy init [role name 1]
+$ ansible-galaxy init [role name 2]
+$ ls [role 1]/
+```
+
+* **Important:** Roles are used to break down the entire playbook into specific components, for each are defined in separate directory.
+Example, All tasks are stored in tasks directory.
+
+
+
