@@ -415,6 +415,56 @@ Server list: <br>
 ```
 
 ## Creating a New Role
+```
+$ ansible-galaxy init [role]
+```
+```
+$ ansible-galaxy init web
+$ ls
+```
+
+* Add tasks in main.yml file for Web
+```
+- name: install git
+  yum: name=git state=present
+
+- name: checkout lameapp
+  git: repo=https://github.com/jsmartin/lameapp.git version="{{lameapp_version|string}}" # clone
+
+- name: set persmissions on the app
+  file: name=/var/www/lameapp/lame.py mode=0755
+
+- name: add apache config file
+  copy: src=lameapp.conf dest={{sites_available}}
+  notify: restart apache
+
+- name: link app config
+  file: src="{{sites_available}}/lameapp.conf" dest={{sites_enabled}}/lameapp.conf state=link
+
+- meta: flush_handlers # Run handlers now rather than at the end of play
+
+- name: check for proper response from UI
+  uri:
+    url: http://localhost/lame
+    return_content: yes
+  register: result
+  until: '"Hello Moon" in result.content'
+```
+
+* **Lame.conf** in files/ directory 
+```
+<Directory /var/www/lameapp>
+Options +ExecCGI
+AddHandler cgi-script .py
+</Directory>
+ScriptAlias /lame "/var/www/lameapp/lame.py"
+```
+
+* Create handler/main.yml
+```
+- name: restart apache
+  service: name=httpd state=restart
+```
 
 ## Utilizing Roles in the Main Playbooks
 
