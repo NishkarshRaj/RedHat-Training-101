@@ -15,7 +15,7 @@
     command: getenforce
     register: sestatus
     changed_when: false
-  - install apache
+  - name: install apache
     yum: name=httpd state=present
   - name: start apache
     service: name=httpd state=started enabled=yes
