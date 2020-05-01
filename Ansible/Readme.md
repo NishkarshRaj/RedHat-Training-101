@@ -414,3 +414,8 @@ Server list: <br>
   service: name=httpd state=restarted
 ```
 
+## Creating a New Role
+
+## Utilizing Roles in the Main Playbooks
+
+## Introduction to Ansible Towers
