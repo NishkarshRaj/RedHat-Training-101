@@ -1,0 +1,21 @@
+- name: install and start apache
+  hosts: webservers
+  remote_user: vagrant
+  become: yes
+
+  tasks:
+  - name: install epel repp
+    yum: name=epel-release state=present
+  - name: install python bindings for SELinux
+    yum: name={{item}} state=present
+    with_items:
+    - libselinux-python
+    libsemanage-python
+  - name: test SELinx is running
+    command: getenforce
+    register: sestatus
+    changed_when: false
+  - install apache
+    yum: name=httpd state=present
+  - name: start apache
+    service: name=httpd state=started enabled=yes
