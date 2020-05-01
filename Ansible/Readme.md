@@ -513,4 +513,26 @@ ScriptAlias /lame "/var/www/lameapp/lame.py"
 ansible-playbook -i [inventory] site.yml
 ```
 
-## Introduction to Ansible Towers
+## Introduction to Ansible Towers - Dashboard GUI
+
+* Create Project
+- Name
+- SCM Type
+- Playbook Directory
+
+* Inventories - Hosts and groups
+
+* Job Templates - Pre-configured playbooks
+- Job Type
+- Inventory
+- Project
+- Playbook
+- Machine Credentials
+
+* Completely GUI Support with RESTAPI - [Ansible Tower IP]/api/v1
+Shows the various endpoints we can use.
+
+* Role based Access Controls (Linux Permissions analogy for permission strucuture)
+- Users
+- Teams
+
