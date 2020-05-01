@@ -99,7 +99,7 @@ https://docs.ansible.com/ansible/latest/modules/modules_by_category.html
 3. Script: local script execution on remote node
 4. Raw: execure command without going through Ansible module subsystem - pure ssh command without Python use case.
 
-## Ad-hoc commands and Demonstration
+## Ad-hoc commands
 
 * Check all hosts are up 
 ```
@@ -154,5 +154,92 @@ $ ansible [group name/all] -i [inventory file] -u [hosts] -m [command name] -a [
 * Delete Packages
 ```
 $ ansible [group name/all] -i hosts -u vagrant -m yum -a "name=<package> state=absent" -b
+```
+
+## Introduction to Playbooks
+
+### Variables 
+* Account for difference in servers, groups and hosts.
+* Ansible works with metadata from various sources and manages their context in form of variables.
+
+**Variable Precedence** - Overriding predecence
+* 16 levels of precedence
+* Extra vars have the highest precedence
+* Role defaults have the lowest precendence
+
+![Variable precedence](img/2.png)
+
+**Variables can be**
+1. file
+2. yum
+3. service: service should be running
+4. template: config file
+5. get_url: Fetch archive from url
+6. git: clone a source code repo
+
+**Tasks:** Declarative tasks for variable - RUN SEQUENTIALLY
+
+```
+tasks:
+  - name: add cache directory
+    file:
+      path: /opt/cache
+      state: directory
+
+  - name: install nginx
+    yum:
+      name: nginx
+      state: latest
+
+  - name: restart nginx
+    service:
+      name: nginx
+      state: restarted
+```
+
+**Handler Tasks** Triggered on certain events
+* Special tasks
+* **Run at the end of play regardless the number of times they are triggered during the play**
+* Manually triggered from normal tasks using the **notify keywords**
+
+```
+tasks:
+  - name: add cache directory
+    file:
+      path: /opt/cache
+      state: directory
+
+  - name: install nginx
+    yum:
+      name: nginx
+      state: latest
+    notify: restart nginx
+
+handlers:
+  - name: restart nginx # Must be same as notify command argument
+    service:
+      name: nginx
+      state: restarted
+```
+
+**Play:** Ordered set of tasks to be executed against hosts selection in our inventory
+
+**Playbooks** file consisting of all plays in workspace.
+
+```
+- name: install and start apache
+  hosts: web # group name
+  vars: 
+    http_port: 80
+    max_clients: 200
+  remote_user: root #[user name]
+
+  tasks:
+  - name: install httpd
+    yum: pkg=httpd state=latest #### Have you noted that inputs of tasks are modules!!
+  - name: write the apache config file
+    template: src=/src/httpd.j2 dest=/etc/httpd.conf
+  - name: start httpd
+    service: name=httpd state=started
 ```
 
