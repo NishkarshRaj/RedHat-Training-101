@@ -263,7 +263,7 @@ handlers:
     command: getenforce
     register: sestatus
     changed_when: false
-  - install apache
+  - name: install apache
     yum: name=httpd state=present
   - name: start apache
     service: name=httpd state=started enabled=yes
@@ -312,5 +312,105 @@ $ ls [role 1]/
 * **Important:** Roles are used to break down the entire playbook into specific components, for each are defined in separate directory.
 Example, All tasks are stored in tasks directory.
 
+## Breaking an existing playbook into a role
+* We will use our site.yml file that was created initially and convert them into roles that we created in last step.
+* We have two roles, say - common and apache
 
+* Go to **roles/common/tasks** - Create two files called SELinux.yml and ntp.yml alongside the default main.yml file
+* Add two tasks related to **SELinux.yml** file
+```
+- name: install python bindings for SELinux
+  yum: name={{item}} state=present # loop
+  with_items:
+  - libselinux-python
+    libsemanage-python
+- name: test SELinx is running
+  command: getenforce
+  register: sestatus
+  changed_when: false
+```
+
+* Create the **NTP.yml** file:
+```
+- name: install ntp
+  yum: name=ntp state=present
+- name: configure ntp file
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  notify: restart ntp # After configuration, restart 
+- name: start ntp
+  service: name=ntpd state=started
+```
+* Need to create handler and configure the template file
+
+* Create handler in roles/common/handler
+```
+- name: restart ntp
+  service: name=ntpd state=restarted 
+```
+* Template configuration
+* roles/common/template/ntp.conf.j2
+```
+driftfile /var/lib/ntp/drift
+
+restrict 127.0.0.1
+restrict -6 ::1
+
+server {{ ntpserver }}
+
+includefile /etc/ntp/crypto/pw
+
+keys /etc/ntp/keys
+```
+
+* Create main.yml file
+```
+- name: install epel repo
+  yum: name=epel-release state=present
+
+- include: selinux.yml
+- include: ntp.yml
+```
+
+**Apache Role:** Put both the two tasks for Apache role in /roles/apache/tasks/main.yml and add extra tasks you want
+```
+- name: install apache
+  yum: name=httpd state=present
+
+- name: create sites directory
+  file: path={{item}} state=directory
+  with_items: {{apache_dirs}}
+
+- name: copy and index.html
+  template: src=index.html.j2 dest={{apache_docroot}}/index.html
+
+- name: copy apache configurations
+  template: src=httpd.conf={{ansible_os_family}}.j2 dest={{apache_config}}# OS Family - RHEL based and Debian based both
+  notify: restart apache
+
+- name: start apache
+  service: name=httpd state=started enabled=yes
+```
+
+* Modifications needed after main.yml creation
+- Template declaration for two declaration
+- Handler declaration
+
+* Tempaltes directory - **index.html.j2**
+```
+{{ apache_test_message }} {{ ansible_distribution }} {{
+ansible_distribution_version}} <br>
+Current Host: {{ ansible_hostname }} <br>
+Server list: <br>
+{% for host in groups.webserver %}
+{{ host }} <br>
+{% endfor %}
+```
+
+* Templates directory - **httpd.conf-RedHat.j2**
+
+* **Handler/main.yml**
+```
+- name: restart apache
+  service: name=httpd state=restarted
+```
 
